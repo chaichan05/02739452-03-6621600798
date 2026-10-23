@@ -170,7 +170,8 @@ with map_col:
         zoom=4.25, center={"lat": 13.2, "lon": 101.0}, height=560,
     )
     map_fig.update_layout(
-        mapbox_style="carto-positron", paper_bgcolor="rgba(0,0,0,0)",
+        # OpenStreetMap works without a Mapbox/CARTO API key, so the repo runs as-is.
+        mapbox_style="open-street-map", paper_bgcolor="rgba(0,0,0,0)",
         margin=dict(l=0, r=0, t=0, b=0), coloraxis_colorbar=dict(title="ลึก<br>(กม.)", thickness=12),
     )
     st.plotly_chart(map_fig, use_container_width=True, config={"displayModeBar": False})
