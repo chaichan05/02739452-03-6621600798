@@ -18,12 +18,20 @@ st.markdown(
     <style>
       :root { --ink:#172033; --muted:#64748b; --line:#dbe4ee; --teal:#087f8c; }
       .stApp { background:#f5f7fb; color:var(--ink); font-family:Tahoma,"Noto Sans Thai",Arial,sans-serif; }
-      .block-container { max-width:1480px; padding-top:2rem; padding-bottom:3rem; }
+      /* Keep the dashboard header compact; Streamlit's cloud controls are not needed here. */
+      header[data-testid="stHeader"],
+      [data-testid="stToolbar"],
+      [data-testid="stDecoration"],
+      .stDeployButton,
+      #MainMenu { display:none !important; }
+      [data-testid="stAppViewContainer"] { padding-top:0 !important; }
+      .block-container { max-width:1480px; padding-top:1.15rem; padding-bottom:3rem; }
       [data-testid="stSidebar"] { background:#fff; border-right:1px solid var(--line); }
       h1,h2,h3 { color:var(--ink); letter-spacing:-.02em; }
-      h1 { font-size:clamp(2rem,4vw,3.35rem)!important; margin-bottom:.35rem!important; }
+      h1 { font-size:clamp(1.8rem,3vw,2.65rem)!important; line-height:1.18!important; margin:.1rem 0 .35rem!important; padding:0!important; }
       h2 { font-size:1.45rem!important; margin-top:.6rem!important; }
       .eyebrow,.section-kicker { color:var(--teal); font-weight:800; letter-spacing:.12em; font-size:.76rem; }
+      .eyebrow { margin:0 0 .15rem; }
       .subtitle { color:var(--muted); max-width:920px; font-size:1.03rem; line-height:1.75; }
       .section-note { color:var(--muted); font-size:.9rem; margin-top:-.6rem; margin-bottom:.7rem; }
       .scope-note { padding:.8rem 1rem; background:#e9f8f6; color:#12635f; border:1px solid #b9e7e0; border-radius:12px; font-size:.88rem; line-height:1.55; }
@@ -34,7 +42,7 @@ st.markdown(
       [data-testid="stPlotlyChart"],[data-testid="stDataFrame"] { background:#fff; border:1px solid var(--line); border-radius:16px; padding:.45rem; overflow:hidden; box-shadow:0 5px 18px rgba(23,32,51,.04); }
       button[data-baseweb="tab"] { font-weight:700; font-size:.96rem; }
       .stAlert { border-radius:12px; }
-      @media(max-width:900px){ .block-container{padding-top:1.2rem} [data-testid="stMetric"]{min-height:100px} }
+      @media(max-width:900px){ .block-container{padding-top:.8rem} h1{font-size:1.85rem!important} [data-testid="stMetric"]{min-height:100px} }
     </style>
     """,
     unsafe_allow_html=True,
