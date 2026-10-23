@@ -41,6 +41,38 @@ docker compose up -d --build
 
 รอบแรกจะดาวน์โหลด image และใช้เวลาหลายนาที ข้อมูลถูกจำกัดช่วง 1 มกราคม 2564 ถึง 31 ธันวาคม 2569 และเก็บเฉพาะพิกัดที่ผ่าน point-in-polygon ภายในขอบเขตจังหวัดของประเทศไทย
 
+## เชื่อมต่อ PostgreSQL ด้วย DBeaver
+
+หลังจากรัน `docker compose up -d --build` แล้ว ให้สร้างการเชื่อมต่อใหม่ใน DBeaver โดยเลือก **PostgreSQL** และกรอกค่าดังนี้
+
+| ช่องใน DBeaver | ค่า |
+| --- | --- |
+| Host | `localhost` หรือ `127.0.0.1` |
+| Port | `5432` หรือค่าของ `POSTGRES_PORT` ในไฟล์ `.env` |
+| Database | `earthquake` หรือค่าของ `POSTGRES_DB` ในไฟล์ `.env` |
+| Username | `earthquake` หรือค่าของ `POSTGRES_USER` ในไฟล์ `.env` |
+| Password | ค่าของ `POSTGRES_PASSWORD` ในไฟล์ `.env` |
+| SSL | ปิด (`disable`) สำหรับการรันในเครื่อง |
+
+กด **Test Connection** แล้วเปิด `Databases > earthquake > Schemas > public > Tables` จะพบตารางหลักดังนี้
+
+- `earthquake_events` - ข้อมูลเหตุการณ์แผ่นดินไหวที่ผ่านการตรวจสอบ
+- `pipeline_runs` - ประวัติและสถานะการรัน pipeline
+- `rejected_events` - ข้อมูลที่ไม่ผ่านการตรวจคุณภาพ
+
+ตัวอย่างคำสั่งตรวจข้อมูลใน DBeaver SQL Editor:
+
+```sql
+SELECT COUNT(*) AS total_events FROM earthquake_events;
+
+SELECT occurred_at, province, magnitude, depth_km, sources
+FROM earthquake_events
+ORDER BY occurred_at DESC
+LIMIT 20;
+```
+
+พอร์ต PostgreSQL ถูก bind เฉพาะ `127.0.0.1` เพื่อไม่เปิดฐานข้อมูลออกสู่อินเทอร์เน็ต หากพอร์ต `5432` ถูกใช้งานอยู่ ให้แก้ `POSTGRES_PORT` ใน `.env` เช่น `POSTGRES_PORT=5433` แล้วใช้พอร์ตเดียวกันใน DBeaver
+
 ## ตรวจสอบ
 
 ```powershell
