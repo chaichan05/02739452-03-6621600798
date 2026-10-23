@@ -174,7 +174,19 @@ with map_col:
         mapbox_style="open-street-map", paper_bgcolor="rgba(0,0,0,0)",
         margin=dict(l=0, r=0, t=0, b=0), coloraxis_colorbar=dict(title="ลึก<br>(กม.)", thickness=12),
     )
-    st.plotly_chart(map_fig, use_container_width=True, config={"displayModeBar": False})
+    st.plotly_chart(
+        map_fig,
+        use_container_width=True,
+        config={
+            "scrollZoom": True,
+            "displayModeBar": True,
+            "displaylogo": False,
+            "doubleClick": "reset",
+            "responsive": True,
+            "modeBarButtonsToRemove": ["select2d", "lasso2d"],
+        },
+    )
+    st.caption("ซูมด้วยล้อเมาส์หรือทัชแพด · ลากเพื่อเลื่อนแผนที่ · ดับเบิลคลิกเพื่อกลับมุมมองเริ่มต้น")
 
 with trend_col:
     st.markdown("#### จำนวนเหตุการณ์รายปี")
