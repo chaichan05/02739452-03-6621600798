@@ -73,6 +73,20 @@ LIMIT 20;
 
 พอร์ต PostgreSQL ถูก bind เฉพาะ `127.0.0.1` เพื่อไม่เปิดฐานข้อมูลออกสู่อินเทอร์เน็ต หากพอร์ต `5432` ถูกใช้งานอยู่ ให้แก้ `POSTGRES_PORT` ใน `.env` เช่น `POSTGRES_PORT=5433` แล้วใช้พอร์ตเดียวกันใน DBeaver
 
+### หาก DBeaver แจ้ง `password authentication failed`
+
+1. ตรวจว่า Password ใน DBeaver ตรงกับ `POSTGRES_PASSWORD` ในไฟล์ `.env` ไม่ใช่ค่าที่จำจาก `.env.example`
+2. หากเคยเปลี่ยนรหัสใน `.env` หลังจากสร้าง PostgreSQL volume แล้ว ให้เปิด terminal และสั่ง:
+
+```powershell
+docker compose exec postgres psql -U earthquake -d earthquake
+```
+
+3. ที่ prompt ของ PostgreSQL พิมพ์ `\password earthquake` แล้วกรอกรหัสเดียวกับ `POSTGRES_PASSWORD` จำนวน 2 ครั้ง จากนั้นพิมพ์ `\q`
+4. กลับไปที่ DBeaver กด **Edit Connection**, กรอกรหัสใหม่ แล้วกด **Test Connection**
+
+วิธีนี้เปลี่ยนเฉพาะรหัสของ database role และไม่ลบข้อมูลใน volume
+
 ## ตรวจสอบ
 
 ```powershell
