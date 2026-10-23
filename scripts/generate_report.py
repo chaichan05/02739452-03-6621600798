@@ -10,7 +10,8 @@ from reportlab.platypus import Paragraph, Table, TableStyle
 
 OUT = Path("/opt/airflow/output/pdf")
 SHOTS = Path("/opt/airflow/output/screenshots")
-PDF = OUT / "earthquake_project_summary_6621600798.pdf"
+PDF = OUT / "03_6621600798_summary.pdf"
+REPOSITORY_URL = "https://github.com/chaichan05/02739452-03-6621600798"
 PAGE = landscape(A4)
 W, H = PAGE
 NAVY, TEAL, ORANGE, PALE = colors.HexColor("#07131f"), colors.HexColor("#2ab7a9"), colors.HexColor("#f4a259"), colors.HexColor("#edf4f7")
@@ -48,6 +49,7 @@ def build():
     header(c, 1, "Thailand Earthquake Pipeline · Project overview")
     y = H-30*mm
     y = p(c, "<b>Achievement: Level 3 + bonus.</b> Events from 2021-2026 are retained only when their coordinates fall inside a real Thailand ADM1 polygon; the matching polygon supplies the province. Three sources are normalized, deduplicated, quality-checked, and idempotently upserted. The dashboard reads PostgreSQL directly.", 15*mm, y, W-30*mm, 10, PALE, 14)
+    y = p(c, f"<b>GitHub repository:</b> {REPOSITORY_URL}", 15*mm, y-2*mm, W-30*mm, 8, TEAL, 11)
     gap=5*mm; boxw=(W-30*mm-2*gap)/3; boxh=73*mm; by=24*mm
     screenshot_or_placeholder(c,"airflow_graph.png","AIRFLOW · GRAPH VIEW",15*mm,by,boxw,boxh)
     screenshot_or_placeholder(c,"airflow_grid.png","AIRFLOW · GRID VIEW",15*mm+boxw+gap,by,boxw,boxh)
