@@ -1,0 +1,3 @@
+# Convenience installer for local development and marking requirements.
+-r requirements-airflow.txt
+-r web/requirements.txt

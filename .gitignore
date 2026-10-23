@@ -1,0 +1,11 @@
+.env
+data/thailand_adm1.geojson
+__pycache__/
+.pytest_cache/
+*.pyc
+data/*.json
+logs/
+plugins/
+output/pdf/*.png
+output/pdf/rendered/
+
